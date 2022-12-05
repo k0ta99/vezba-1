@@ -1,32 +1,39 @@
 /// <reference types = "Cypress"/>
-// Arrow function () => {}
+
+const Locators = require("../fixtures/locators.json")
 
 describe("login test", () => {
+
+    it.only('logout',() =>{
+        cy.visit(" ")
+        cy.get('button[class="btn btn-custom"]')
+
+    })    
+ 
+
     it("login with valid credentials", () => {
-        cy.visit("https://gallery-app.vivifyideas.com")
-        cy.get('a[href="/login"]').click()
-        //cy.get('a[class="nav-link nav-buttons"]').first()
-        //cy.get('input[id="email"]')
-        cy.get("#email").type("kkk@gmail.com")
-        cy.get("#password").type("test1234")
-        cy.get('button').click()
+        cy.visit(" ")
+        cy.get(Locators.Login.loginButton).click()
+        cy.get(Locators.Common.emailInput).type("kkk@gmail.com")
+        cy.get(Locators.Common.passwordInput).type("test1234")
+        cy.get(Locators.Common.submitButton).click()
     })
 
-    // it('logout',() =>{
-    //     cy.get(".nav-link").should("have.length", 4)
-    //     cy.get(".nav-link").eq(3).click()
-    // })
+     it('logout',() =>{
+         cy.get(".nav-link").should("have.length", 4)
+         cy.get(".nav-link").eq(3).click()
+     })
 
     it("login with invalid credentials", () => {
-        cy.visit("https://gallery-app.vivifyideas.com")
+        cy.visit("/login")
         cy.get('a[href="/login"]').click()
         cy.get("#email").type("kkk1@gmail.com")
         cy.get("#password").type("test1234")
         cy.get('button').click()
     })
 
-    it.only("login with invalid email format", () => {
-        cy.visit("https://gallery-app.vivifyideas.com")
+    it("login with invalid email format", () => {
+        cy.visit("/login")
         cy.get('a[href="/login"]').click()
         cy.get("#email").type("kkk1gmail.com")
         cy.get("#password").type("test1234")
@@ -34,7 +41,7 @@ describe("login test", () => {
     })
 
     it("login with blank email input field", () => {
-        cy.visit("https://gallery-app.vivifyideas.com")
+        cy.visit("/login")
         cy.get('a[href="/login"]').click()
         cy.get("#email").type(" ")
         cy.get("#password").type("test1234")
@@ -42,7 +49,7 @@ describe("login test", () => {
     })
 
     it("login with both blank fields", () => {
-        cy.visit("https://gallery-app.vivifyideas.com")
+        cy.visit("/login")
         cy.get('a[href="/login"]').click()
         cy.get("#email").type(" ")
         cy.get("#password").type(" ")

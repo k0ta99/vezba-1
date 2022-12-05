@@ -1,5 +1,8 @@
 /// <reference types = "Cypress"/>
-// Arrow function () => {}
+
+const Locators = require("../fixtures/locators.json")
+
+
 
 describe("registration test", () => {
     function makeId(length) {
@@ -15,19 +18,17 @@ describe("registration test", () => {
         return result;
       }
       let email = `${makeId(5)}@test.com`;
-
-    it("register with valid credentials", () => {
-        cy.visit("https://gallery-app.vivifyideas.com")
-        cy.get('a[href="/register"]').click()
-        cy.get("#first-name").type("Marko")
-        cy.get("#last-name").type("Marko")
-        cy.get("#email").type(email)
-        cy.get("#password").type("test1234")
-        cy.get("#password-confirmation").type("test1234")
-        cy.get('input[type="checkbox"]').click()
-        cy.get("button").click()
+    
+      it("register with valid credentials", () => {
+        cy.visit("/register")
+        cy.get(Locators.Register.firstName).type("Marko")
+        cy.get(Locators.Register.lastName).type("Marko")
+        cy.get(Locators.Common.emailInput).type(email)
+        cy.get(Locators.Common.passwordInput).type("test1234")
+        cy.get(Locators.Register.passwordConfirmationInput).type("test1234")
+        cy.get(Locators.Register.checkboxField).click()
+        cy.get(Locators.Common.submitButton).click()
         cy.url().should("not.include", "/register")
-
     })
 
     it("register with invalid email format", () => {
@@ -41,7 +42,6 @@ describe("registration test", () => {
         cy.get('input[type="checkbox"]').click()
         cy.get("button").click()
         cy.url().should("not.include", "/register")
-
     })
 
     it("register with alhpanumeric 'first name' input field", () => {
@@ -55,7 +55,6 @@ describe("registration test", () => {
         cy.get('input[type="checkbox"]').click()
         cy.get("button").click()
         cy.url().should("not.include", "/register")
-
     })
 
     it("register with invalid password format", () => {
@@ -69,7 +68,6 @@ describe("registration test", () => {
         cy.get('input[type="checkbox"]').click()
         cy.get("button").click()
         cy.url().should("not.include", "/register")
-
     })
 
     it("register with unconfirmed password", () => {
@@ -97,7 +95,7 @@ describe("registration test", () => {
         cy.url().should("not.include", "/register")
     })
 
-    it.only("register with blank first name", () => {
+    it("register with blank first name", () => {
         cy.visit("https://gallery-app.vivifyideas.com")
         cy.get('a[href="/register"]').click()
         cy.get("#first-name").type(" ")
@@ -109,9 +107,4 @@ describe("registration test", () => {
         cy.get("button").click()
         cy.url().should("not.include", "/register")
     })
-
-
-
-
-
 })

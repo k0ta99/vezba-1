@@ -1,4 +1,4 @@
-class allGalleries{
+class AllGalleries{
     get searchInputField(){
         return cy.get("input[type='text']")
     }
@@ -23,7 +23,7 @@ class allGalleries{
         return cy.get(".nav-link").eq(3)
     }
 
-    allGalleries(searchInputField, filterButton, myGalleries, createGallery, loadMore, logout){
+    AllGalleries(searchInputField, filterButton, myGalleries, createGallery, loadMore, logout){
         this.searchInputField.type(searchInputField)
         this.filterButton.click()
         this.myGalleries.click()
@@ -33,4 +33,4 @@ class allGalleries{
     }
 }
 
-export const allGalleries = new allGalleries()
+export const AllGalleries = new AllGalleries()

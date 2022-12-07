@@ -2,19 +2,16 @@
     "Login" : {
         "loginButton" : "a[href='/login']" 
     },
-
     "Register" : {
-        "firstName" : "#first-name",
-        "lastName" : "#last-name",
+        "firstNameInput" : "#first-name",
+        "lastNameInput" : "#last-name",
         "passwordConfirmationInput" : "#password-confirmation",
         "checkboxField" : "input[type='checkbox']"
     },
-
     "Common" : {
         "submitButton" : "button",
         "emailInput" : "#email",
         "passwordInput" : "#password" 
     }
 
-    
 }

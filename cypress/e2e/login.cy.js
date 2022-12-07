@@ -3,16 +3,8 @@
 const Locators = require("../fixtures/locators.json")
 
 describe("login test", () => {
-
-    it.only('logout',() =>{
-        cy.visit(" ")
-        cy.get('button[class="btn btn-custom"]')
-
-    })    
- 
-
     it("login with valid credentials", () => {
-        cy.visit(" ")
+        cy.visit("/")
         cy.get(Locators.Login.loginButton).click()
         cy.get(Locators.Common.emailInput).type("kkk@gmail.com")
         cy.get(Locators.Common.passwordInput).type("test1234")
@@ -56,9 +48,4 @@ describe("login test", () => {
         cy.get('button').click()
     })
     
-
-
-
-
-
 })

@@ -1,43 +1,44 @@
-const { get } = require("cypress/types/lodash")
 
-class authRegister{
-    get firstName(){
+class AuthRegister{
+    get firstNameInput(){
         return cy.get('#first-name')
     }
 
-    get lastName(){
+    get lastNameInput(){
         return cy.get('#last-name')
     }
 
-    get email(){
+    get emailInput(){
         return cy.get('#email')
     }
 
-    get password(){
+    get passwordInput(){
         return cy.get('#password')
     }
 
-    get confirmedPassword(){
+    get confirmedPasswordInput(){
         return cy.get('#password-confirmation')
     }
 
-    get acceptedTAC(){
+    get checkboxTAC(){
+        
         return cy.get("input[type='checkbox']")
     }
 
-    get submit(){
+    get submitButton(){
         return cy.get('button')
     }
 
-    register(firstName, lastName, email, password, confirmedPassword, acceptedTAC, submit){
-        this.firstName.type(firstName)
-        this.lastName.type(lastName)
-        this.email.type(email)
+    register(firstNameInput, lastNameInput, emailInput, password, password, checkboxTAC, submitButton){
+        this.firstNameInput.type(firstName)
+        this.lastNameInput.type(lastName)
+        this.emailInput.type(email)
         this.password.type(password)
-        this.confirmedPassword.type(confirmedPassword)
-        this.acceptedTAC.click()
-        this.submit.click()
+        this.password.type(password)
+        this.checkboxTAC.check()
+        this.submitButton.click()
     }
 }
 
-export const authRegister = new authRegister()
+export const AuthRegister = new AuthRegister()
+

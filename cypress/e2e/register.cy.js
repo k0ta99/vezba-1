@@ -21,8 +21,8 @@ describe("registration test", () => {
     
       it("register with valid credentials", () => {
         cy.visit("/register")
-        cy.get(Locators.Register.firstName).type("Marko")
-        cy.get(Locators.Register.lastName).type("Marko")
+        cy.get(Locators.Register.firstNameInput).type("Marko")
+        cy.get(Locators.Register.lastNameInput).type("Marko")
         cy.get(Locators.Common.emailInput).type(email)
         cy.get(Locators.Common.passwordInput).type("test1234")
         cy.get(Locators.Register.passwordConfirmationInput).type("test1234")

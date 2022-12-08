@@ -1,36 +1,56 @@
 class AllGalleries{
-    get searchInputField(){
+
+    get allGalleriesHeading(){
+        return cy.get("h1");
+    }
+    get searchInput(){
         return cy.get("input[type='text']")
     }
 
     get filterButton(){
-        return cy.get('button')
+        return cy.get('button').first()
     }
 
-    get myGalleries(){
+    get myGalleriesLink(){
         return cy.get("a[href='/my-galleries']")
     }
 
-    get createGallery(){
+    get createGalleryLink(){
         return cy.get('a[href="/create"]')
     }
 
-    get loadMore(){
-        return cy.get('button[class="btn btn-custom"]')
+    get loadMoreButton(){
+        return cy.get('button').last()
     }
 
-    get logout(){
-        return cy.get(".nav-link").eq(3)
+    get singleGallery(){
+        return cy.get(".cell");
     }
 
-    AllGalleries(searchInputField, filterButton, myGalleries, createGallery, loadMore, logout){
-        this.searchInputField.type(searchInputField)
-        this.filterButton.click()
-        this.myGalleries.click()
-        this.createGallery.click()
-        this.loadMore.click()
-        this.logout.click()
+    get galleriesGrid(){
+        return cy.get(".grid");
+    }
+    
+    get galleryHeading(){
+        return this.singleGallery.find("h2")
+    }
+
+    get galleryAuthor(){
+        return this.singleGallery.find("p")
+    }
+
+    get galleryCreationgDate(){
+        return this.singleGallery.find("small");
+    }
+
+    get galleryImage(){
+        return cy.get("img");
+    }
+
+    search(searchTerm){
+        this.searchInput.type(searchTerm);
+        this.filterButton.click();
     }
 }
 
-export const AllGalleries = new AllGalleries()
+export const allGalleries = new AllGalleries()

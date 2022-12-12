@@ -63,7 +63,6 @@ class CreateGallery{
         this.titleInput.type(titleInput);
         this.descriptionInput.type(descriptionInput);
         this.imageInput.type(imageInput);
-        this.cancelButton.click();
     }
     
     createGalleryWithSecondImage(titleInput, descriptionInput, imageInput, secondImageInput){
@@ -75,7 +74,10 @@ class CreateGallery{
         this.submitButton.click();
     }
 
-    redirectToAllGalleries(){
+    redirectToAllGalleries(titleInput, descriptionInput, imageInput){
+        this.titleInput.type(titleInput);
+        this.descriptionInput.type(descriptionInput);
+        this.imageInput.type(imageInput);
         this.allGalleriesLInk.click();
     }
 }

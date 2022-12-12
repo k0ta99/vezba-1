@@ -3,12 +3,7 @@
 import { loginPage } from "../pageObjects/loginPOM"
 import { allGalleries } from "../pageObjects/allGalleriesObject"
 
-
 describe("all galleries test", () => {
-    let existingUser = {
-        validEmail: "marko@gmail.com",
-        validPass: "test1234",
-    };
 
     let searchTerm = "novi sad 3 slike";
 
@@ -19,18 +14,26 @@ describe("all galleries test", () => {
         loginPage.loginHeading.should("be.visible")
         .and("have.text", "Please login");
 
-        loginPage.login(existingUser.validEmail, existingUser.validPass);
+        loginPage.login(Cypress.env("userEmail"), Cypress.env("userPassword"));
 
-        cy.url().should("include", "/login");
-        // allGalleries.allGalleriesHeading
-        // .should("be.visible")
-        // .and("have.text", "All Galeries");
+        cy.url().should("include", "/login"); 
     })
 
-    it.only("test pagination", () => {
+    it("test pagination", () => {
+        cy.intercept(
+            "GET",
+            "https://gallery-api.vivifyideas.com/api/galleries?page=2&term="
+        ).as("loadMoreGalleries");
+
         allGalleries.singleGallery.should("have.length", 10);
         allGalleries.loadMoreButton.click();
         allGalleries.singleGallery.should("have.length", 20);
+
+        cy.wait("@loadMoreGalleries").then(interception =>{
+            console.log("INTERCEPTION", interception);
+            expect(interception.response.statusCode).to.eq(200);
+            expect(interception.response.body.galleries).to.have.length(10);
+        })
     })
 
     it("all galleries loaded", () =>{
@@ -39,22 +42,38 @@ describe("all galleries test", () => {
     });
 
     it("redirect to single gallery", () =>{
-        allGalleriesObject
+        cy.intercept(
+            "GET",
+            "https://gallery-api.vivifyideas.com/api/galleries/2340"
+        ).as("singleGalleryRedirection")
+
+        allGalleries
         .singleGallery
         .first()
-        .find("a")
+        .find("a").first()
         .click()
-        allGalleriesObject.allGalleriesHeading.should("not.be visible");
-        cy.url().should("include", "/galleries");
+
+         allGalleries.allGalleriesHeading.should("not.be", "visible");
+         cy.url().should("include", "/galleries");
+
+         cy.wait("@singleGalleryRedirection").then(interception =>{
+            expect(interception.response.statusCode).to.eq(200)
+            expect(interception.response.body.image_url).to.exist()
+         })
     })
-
-
 
     it("search for existing gallery", () =>{
-        allGalleriesObject.search(searchTerm);
-        allGalleriesObject.singleGallery.should("have.length", 1);
-        
+        cy.intercept(
+            "GET",
+            "https://gallery-api.vivifyideas.com/api/galleries?page=1&term=novi sad 3 slike"
+        ).as("gallerySearch")
+
+        allGalleries.search(searchTerm);
+        allGalleries.singleGallery.should("have.length", 1);
+
+        cy.wait("@gallerySearch").then(interception =>{
+            expect(interception.response.statusCode).to.eq(200)   
+        })
     })
 
-    
 })

@@ -3,6 +3,15 @@ class AllGalleries{
     get allGalleriesHeading(){
         return cy.get("h1");
     }
+
+    get loginLink(){
+        return cy.get(".nav-link").eq(1);
+    }
+
+    get registerLink(){
+        return cy.get(".nav-link").eq(2);
+    }
+
     get searchInput(){
         return cy.get("input[type='text']")
     }
@@ -25,6 +34,10 @@ class AllGalleries{
 
     get singleGallery(){
         return cy.get(".cell");
+    }
+
+    get singleGalleryTitle(){
+        return cy.get(".box-title").eq(0);
     }
 
     get galleriesGrid(){
